@@ -216,7 +216,7 @@ def confirm_file_action(action_str, result_str, force_delete):
 
 # If max_length == -1 it means size of terminal could not be determined. Do
 # nothing witht the string.
-def limit_string_lentgh(string, max_length):
+def limit_string_length(string, max_length):
   if max_length > 1 and len(string) > max_length:
     string = (string[:max_length-1] + '*');
 
@@ -402,7 +402,7 @@ def list_torrent_contents(torrent):
   print('------ ----------------  --------------')
   for i in range(len(torrent.file_name_list)):
     print('{0:6} {1:16,}  {2}'.format(i+1, torrent.file_length_list[i], \
-      limit_string_lentgh(torrent.file_name_list[i], __cols -text_size)))
+      limit_string_length(torrent.file_name_list[i], __cols -text_size)))
 
   # --- Print torrent metadata
   print('')
@@ -458,7 +458,7 @@ def check_torrent_files_only(torrent):
     text_size = 7+9+17+17+1
     print('{0:6} {1:>8} {2:16,} {3:16,}  {4}'
       .format(i+1, status, file_size, torrent.file_length_list[i],
-              limit_string_lentgh(torrent.file_name_list[i], __cols -text_size)))
+              limit_string_length(torrent.file_name_list[i], __cols -text_size)))
 
     # --- Delete wrong size files (mutually exclusive with truncate)
     if status == 'BAD_SIZE' and file_size != torrent.file_length_list[i]:
@@ -552,13 +552,13 @@ def check_torrent_unneeded_files(torrent):
   text_size = 10
   for i in range(len(file_list)):
     if file_list[i] not in torrent_file_set:
-      print('UNNEEDED  {0}'.format(limit_string_lentgh(file_list[i], __cols -text_size)))
+      print('UNNEEDED  {0}'.format(limit_string_length(file_list[i], __cols -text_size)))
       ret_value = 1
       num_redundant += 1
       
       # --- Deleted unneeded file
       if __prog_options_deleteUnneeded:
-        print('      RM  {0}'.format(limit_string_lentgh(file_list[i], __cols -text_size)))
+        print('      RM  {0}'.format(limit_string_length(file_list[i], __cols -text_size)))
         # This option is very dangerous if user writes the wrong directory
         # Always confirm with user
         delete_file, force_delete = confirm_file_action('Delete', 'deleted', force_delete)
@@ -566,7 +566,7 @@ def check_torrent_unneeded_files(torrent):
           os.unlink(file_list[i])
           num_deleted_files += 1
     else:
-      print('      OK  {0}'.format(limit_string_lentgh(file_list[i], __cols -text_size)))
+      print('      OK  {0}'.format(limit_string_length(file_list[i], __cols -text_size)))
       num_needed += 1
  
  
@@ -742,12 +742,12 @@ def check_torrent_files_hash(torrent):
         print('{0:06d} {1:6} {2:>8} {3:>8} {4:16,} {5:16,}  {6}'
           .format(piece_index+1, file_idx+1, hash_status, file_status, 
                   file_size, torrent.file_length_list[file_idx], 
-                  limit_string_lentgh(torrent.file_name_list[file_idx], __cols -text_size)))
+                  limit_string_length(torrent.file_name_list[file_idx], __cols -text_size)))
       else:
         print('\033[0;97m{0:06d} {1:6} {2:>8} {3:>8} {4:16,} {5:16,}  {6}\033[0m'
           .format(piece_index+1, file_idx+1, hash_status, file_status, 
                   file_size, torrent.file_length_list[file_idx], 
-                  limit_string_lentgh(torrent.file_name_list[file_idx], __cols -text_size)))
+                  limit_string_length(torrent.file_name_list[file_idx], __cols -text_size)))
     # --- Increment piece counter
     piece_counter += 1
 
@@ -867,12 +867,12 @@ def check_torrent_files_single_hash(torrent, fileName):
         print('{0:06d} {1:6} {2:>8} {3:>8} {4:16,} {5:16,}  {6}'
           .format(piece_index+1, file_idx+1, hash_status, file_status, 
                   file_size, torrent.file_length_list[file_idx], 
-                  limit_string_lentgh(torrent.file_name_list[file_idx], __cols -text_size)))
+                  limit_string_length(torrent.file_name_list[file_idx], __cols -text_size)))
       else:
         print('\033[0;97m{0:06d} {1:6} {2:>8} {3:>8} {4:16,} {5:16,}  {6}\033[0m'
           .format(piece_index+1, file_idx+1, hash_status, file_status, 
                   file_size, torrent.file_length_list[file_idx], 
-                  limit_string_lentgh(torrent.file_name_list[file_idx], __cols -text_size)))
+                  limit_string_length(torrent.file_name_list[file_idx], __cols -text_size)))
     # --- Increment piece counter
     piece_counter += 1
 
